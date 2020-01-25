@@ -1,0 +1,3 @@
+rootProject.name='MultilModule'
+include ':app', ':coremodule'
+//include ':coremodule'
