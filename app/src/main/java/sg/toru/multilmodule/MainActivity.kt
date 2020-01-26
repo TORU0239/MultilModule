@@ -7,8 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sg.toru.mbase_module.core.network.Network
-import kotlin.coroutines.CoroutineContext
+import sg.toru.mbase_module.core.model.repository.Repo
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,14 +16,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         test()
+        test2()
     }
 
-    fun test() {
+    private fun test() {
         CoroutineScope(Dispatchers.IO).launch {
-            val result = Network.request()
+            val result = Repo.requestAllPosts()
             withContext(Dispatchers.Main){
                 Log.e("Toru", "result size :: ${result.size}")
             }
+        }
+    }
+
+    private fun test2(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val result = Repo.requestPostById("1")
         }
     }
 }
