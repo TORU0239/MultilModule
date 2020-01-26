@@ -1,36 +1,21 @@
 package sg.toru.multilmodule
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.liveData
+import sg.toru.mbase_module.core.model.pojo.FeedPost
+import sg.toru.mbase_module.core.model.repository.Output
 import sg.toru.mbase_module.core.model.repository.Repo
 
 class MainViewModel:ViewModel() {
-    internal val resultLiveData = MutableLiveData<String>()
-
-    internal fun trigger(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = Repo.requestAllPosts()
-            withContext(Dispatchers.Main){
-                resultLiveData.value = result.size.toString()
+    internal fun testCoroutine(): LiveData<List<FeedPost>> = liveData{
+        when(val post = Repo.advancedAllPost()){
+            is Output.Success<List<FeedPost>> ->{
+                emit(post.output)
             }
-        }
-    }
-
-    internal fun getPostAndComment(id:String){
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.e("Toru", "post trigger")
-            val post = Repo.requestPostById(id)
-            Log.e("Toru", "comment trigger")
-            val comments = Repo.requestCommentById(id)
-
-            withContext(Dispatchers.Main){
-                Log.e("Toru", "body: ${post.body}")
-                Log.e("Toru", "comments size: ${comments.size}")
+            is Output.Failure -> {
+                emit(listOf(FeedPost("", "", "", "")))
             }
         }
     }
