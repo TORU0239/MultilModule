@@ -12,10 +12,14 @@ import java.util.concurrent.TimeUnit
 object Network {
     private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
+    private val loggingInterceptor:HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BODY)
+        }
     private val okHttpClient:OkHttpClient = OkHttpClient().newBuilder()
         .readTimeout(300, TimeUnit.MILLISECONDS)
         .writeTimeout(300, TimeUnit.MILLISECONDS)
-        .addNetworkInterceptor(HttpLoggingInterceptor())
+        .addNetworkInterceptor(loggingInterceptor)
         .build()
 
     private val retrofit:Retrofit = Retrofit.Builder()
