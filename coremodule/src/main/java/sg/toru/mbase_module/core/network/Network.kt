@@ -15,8 +15,8 @@ object Network {
         }
 
     private val okHttpClient:OkHttpClient = OkHttpClient().newBuilder()
-        .readTimeout(300, TimeUnit.MILLISECONDS)
-        .writeTimeout(300, TimeUnit.MILLISECONDS)
+        .readTimeout(3000, TimeUnit.MILLISECONDS)
+        .writeTimeout(3000, TimeUnit.MILLISECONDS)
         .addNetworkInterceptor(loggingInterceptor)
         .build()
 

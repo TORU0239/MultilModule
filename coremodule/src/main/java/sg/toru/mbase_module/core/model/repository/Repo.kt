@@ -8,4 +8,5 @@ object Repo {
 
     suspend fun requestAllPosts() = networkService.getAllPosts()
     suspend fun requestPostById(id:String) = networkService.getPostById(id)
+    suspend fun requestCommentById(id:String) = networkService.getComments(id)
 }
