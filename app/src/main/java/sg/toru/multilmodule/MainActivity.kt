@@ -1,21 +1,14 @@
 package sg.toru.multilmodule
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import sg.toru.mbase_module.core.model.pojo.FeedPost
-import sg.toru.mbase_module.core.model.repository.Repo
 
 class MainActivity : AppCompatActivity() {
     private val viewModel:MainViewModel by lazy {
@@ -37,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         viewModel.testCoroutine().observe(this, Observer<List<FeedPost>>{ list ->
             progressBar.visibility = View.GONE
             textView.text = "returned size:::: ${list.size}"
