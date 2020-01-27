@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.testCoroutine().observe(this, Observer<List<FeedPost>>{ list ->
             progressBar.visibility = View.GONE
-            if(list.isEmpty()){
-                textView.text = "No returned value!!"
-            }
-            else{
-                textView.text = "returned size:::: ${list.size}"
-            }
+            textView.text = "returned size:::: ${list.size}"
+        })
+
+        viewModel.exceptionalLiveData.observe(this, Observer {
+            progressBar.visibility = View.GONE
+            // Error Handling Part
         })
     }
 }

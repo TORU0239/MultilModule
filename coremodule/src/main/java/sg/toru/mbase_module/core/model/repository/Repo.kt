@@ -14,17 +14,17 @@ object Repo {
         try {
             result = apiCall.invoke()
         } catch (exception:Exception) {
-            return Output.Failure(exception)
+            return Output.Exceptional(exception)
         }
 
         if(!result.isSuccessful){
-            result.errorBody().let { error ->
-                return Output.Failure(Exception(error.toString()))
+            result.errorBody()?.let { error ->
+                return Output.Failure(error.toString())
             }
         }
 
         if(result.body() == null){
-            return Output.Failure(RuntimeException("Null body is not allowed here!"))
+            return Output.Exceptional(RuntimeException("Null body is not allowed here!"))
         }
         return Output.Success(result.body()!!)
     }
@@ -32,5 +32,6 @@ object Repo {
 
 sealed class Output<out T:Any> { // out means we are only allowed to read the value.
     data class Success<out T:Any>(val output:T):Output<T>()
-    data class Failure(val exception:Exception):Output<Nothing>()
+    data class Failure(val failureMsg:String):Output<Nothing>()
+    data class Exceptional(val exception:java.lang.Exception):Output<Nothing>()
 }

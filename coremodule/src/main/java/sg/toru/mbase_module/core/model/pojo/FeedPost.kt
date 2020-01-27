@@ -8,6 +8,3 @@ data class FeedPost(@field:Json(name="userId")  val userId:String,
                     @field:Json(name="id")      val id:String,
                     @field:Json(name="title")   val title:String,
                     @field:Json(name="body")    val body:String)
-
-data class BaseOutput<T:Any>(val result:Int,
-                             val response:T)

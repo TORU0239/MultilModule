@@ -2,6 +2,7 @@ package sg.toru.multilmodule
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import sg.toru.mbase_module.core.model.pojo.FeedPost
@@ -15,10 +16,15 @@ class MainViewModel:ViewModel() {
                 emit(post.output)
             }
             is Output.Failure -> {
-                emit(listOf(FeedPost("", "", "", "")))
+                exceptionalLiveData.value = ""
+            }
+            is Output.Exceptional -> {
+                exceptionalLiveData.value = ""
             }
         }
     }
+
+    val exceptionalLiveData:MutableLiveData<String> = MutableLiveData()
 }
 
 class TestViewModel(private val param:String):ViewModel(){
