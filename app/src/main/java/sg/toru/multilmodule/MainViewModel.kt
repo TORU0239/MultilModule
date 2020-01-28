@@ -26,9 +26,3 @@ class MainViewModel:ViewModel() {
 
     val exceptionalLiveData:MutableLiveData<String> = MutableLiveData()
 }
-
-class TestViewModel(private val param:String):ViewModel(){
-    internal fun runSomething(){
-        Log.e("Toru", "runSomething! $param")
-    }
-}
