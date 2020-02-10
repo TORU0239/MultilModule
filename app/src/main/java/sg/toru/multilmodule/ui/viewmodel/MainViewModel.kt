@@ -1,4 +1,4 @@
-package sg.toru.multilmodule
+package sg.toru.multilmodule.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

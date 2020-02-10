@@ -5,7 +5,7 @@ import sg.toru.mbase_module.core.network.reponse.Output
 import sg.toru.mbase_module.core.network.service.NetworkService
 import javax.inject.Inject
 
-class NetRepository constructor(@Inject var service: NetworkService) {
+class NetRepository @Inject constructor(var service: NetworkService) {
     suspend fun advancedAllPost() = baseRequest { service.getAllPosts() }
 
     private suspend fun<T : Any> baseRequest(apiCall: suspend ()-> Response<T>): Output<T> {

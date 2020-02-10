@@ -1,4 +1,4 @@
-package sg.toru.multilmodule
+package sg.toru.multilmodule.ui.activity
 
 import android.os.Bundle
 import android.view.View
@@ -8,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import sg.toru.mbase_module.core.model.pojo.FeedPost
+import sg.toru.multilmodule.ui.viewmodel.MainViewModel
+import sg.toru.multilmodule.R
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel:MainViewModel by lazy {
+    private val viewModel: MainViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
     }
 
