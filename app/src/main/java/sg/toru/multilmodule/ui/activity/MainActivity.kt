@@ -1,5 +1,6 @@
 package sg.toru.multilmodule.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import sg.toru.mbase_module.core.model.pojo.FeedPost
 import sg.toru.multilmodule.ui.viewmodel.MainViewModel
 import sg.toru.multilmodule.R
+import sg.toru.multilmodule.app.App
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by lazy {
@@ -27,6 +29,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        (application as App).appComponent.injectTo(viewModel)
+
+        textView.setOnClickListener {
+            startActivity(
+                Intent(this@MainActivity, SecondActivity::class.java)
+            )
+        }
+
         viewModel.testCoroutine().observe(this, Observer<List<FeedPost>>{ list ->
             progressBar.visibility = View.GONE
             textView.text = "returned size:::: ${list.size}"
